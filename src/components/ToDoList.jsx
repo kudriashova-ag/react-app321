@@ -1,14 +1,14 @@
 import React from 'react';
 import './ToDoList.css';
+import {todolist} from '../data/todolist'
+import ToDoItem from './ToDoItem';
 
 const ToDoList = () => {
 
-    let name = 'Tom';
-
     return (
         <>
-            <h1 className='primary'>Todo, {name}</h1>
-            <p>hjjghj</p>
+            <h1 className='primary'>Todo</h1> 
+            {todolist.map((task, index) => <div key={task.id}><ToDoItem task={task} /></div>)}
         </>
     );
 }
