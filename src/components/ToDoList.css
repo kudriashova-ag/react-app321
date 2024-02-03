@@ -1,3 +1,7 @@
 .primary{
     color: dodgerblue
 }
+
+.done{
+    text-decoration: line-through;
+}
