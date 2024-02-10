@@ -1,45 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import "./ToDoList.css";
 import { todolist } from "../data/todolist";
 import ToDoItem from "./ToDoItem";
-import { nanoid } from "nanoid";
+import todoReducer from "../reducers/todoReducer";
 
 const ToDoList = () => {
   const [newTitle, setNewTitle] = useState("");
-  const [tasks, setTasks] = useState(todolist);
+
+  const [tasks, dispatch] = useReducer(todoReducer, []);
 
   const addHandler = () => {
-    setTasks([
-      ...tasks,
-      {
-        id: nanoid(),
-        title: newTitle,
-        done: false,
-      },
-    ]);
+    dispatch({
+      type: "add",
+      payload: newTitle,
+    });
+
     setNewTitle("");
   };
 
   const deleteHandler = (id) => {
-    const newTasks = tasks.filter((task) => task.id != id);
-    setTasks(newTasks);
-    };
-    
-    const toggleDone = (id) => {
-        const newTasks = tasks.map(task => {
-            if (task.id === id) {
-                return { ...task, done: !task.done }
-            }
-            return task;
-        });
+    dispatch({
+      type: "remove",
+      payload: id,
+    });
+  };
 
-        setTasks(newTasks);
-    }
+  const toggleDone = (id) => {
+    dispatch({
+      type: "toggleDone",
+      payload: id,
+    });
+  };
+
+  useEffect(() => {
+    let initial = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : todolist;
+    dispatch({
+      type: "init",
+      payload: initial,
+    });
+  }, []);
+
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks]);
+
+
+
+
 
   return (
     <>
       <h1 className="primary">Todo</h1>
-
+      <button onClick={() => dispatch({ type: "clear" })}>Clear all</button>
       <div>
         <input
           type="text"
