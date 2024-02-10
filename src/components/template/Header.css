@@ -1,0 +1,19 @@
+.container{
+    width: 80%;
+    margin: 0 auto;
+    padding: 2em 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.light-theme{
+    background: #ddd;
+    color: #333
+}
+
+
+
+.dark-theme{
+    background: #333;
+    color: #ddd
+}

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useContext } from "react";
+import { ThemeContext } from "../contexts/themeContext";
 
 const ToDoItem = ({ task, deleteHandler, toggleDone }) => {
+
   const [editing, setEditing] = useState(false);
 
   return (
     <div>
+    
       <input
         type="checkbox"
         defaultChecked={task.done}
