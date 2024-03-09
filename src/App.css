@@ -1,0 +1,6 @@
+.users {
+  display: flex;
+  gap: 20px;
+  width: 70%;
+  margin: auto;
+}
